@@ -15,5 +15,10 @@ http://maven.apache.org/xsd/maven-4.0.0.xsd">
 			<artifactId>socket.io-client</artifactId>
 			<version>2.1.0</version>
 		</dependency>
+		<dependency>
+			<groupId>org.json</groupId>
+			<artifactId>json</artifactId>
+			<version>20220320</version>
+		</dependency>
 	</dependencies>
 </project>

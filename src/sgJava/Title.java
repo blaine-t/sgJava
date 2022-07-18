@@ -1,32 +1,36 @@
 package sgJava;
 
-import java.net.URI;
-import java.net.URISyntaxException;
+public class Title extends Main  {
+	private static final long serialVersionUID = 8736023688668374202L;
 
-import io.socket.client.IO;
-import io.socket.client.Socket;
-import io.socket.emitter.Emitter;
-
-public class Title  {
-
-	public static void main(String[] args) throws URISyntaxException {
-
-		Socket socket = IO.socket("http://localhost:8080");
-		socket.on(Socket.EVENT_CONNECT, new Emitter.Listener() {
-
-			@Override
-			public void call(Object... args) {
-				System.out.println("Connected to server!");
-			}
-		});
-		socket.on("time", new Emitter.Listener() {
-
-			@Override
-			public void call(Object... args) {
-				System.out.println("Time: " + args[0]);
-			}
-
-		});
-		socket.connect();
+	public void run() {
+		// Initializes default settings
+		Settings.init();
+		
+		// Initializes socket connection to server
+		Sockets.connect();
+		
+		// Authenticates with server
+		Sockets.auth();
+		
+		// Asks the server if client can host a server
+		Sockets.host();
+		
+		// Asks the server if client can start a game
+		Sockets.start();
+		
+		// Asks the server to ready the client
+		Sockets.ready();
+		
+		// Initializes event listeners
+		
+		// Checks the UNIX time stamp
+		Sockets.time();
+		
+		//Checks for any error codes sent
+		Sockets.error();
+		
+		// Checks for any success codes sent
+		Sockets.success();
 	}
 }
