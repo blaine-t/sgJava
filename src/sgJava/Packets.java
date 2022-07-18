@@ -25,4 +25,22 @@ public class Packets extends Settings {
 		return start;
 	}
 	
+	public static JSONObject buyPacket() {
+		JSONObject buy = new JSONObject();
+		buy.put("token", setting.get("token"));
+		buy.put("ticker", setting.get("ticker"));
+		buy.put("amount", setting.get("amount"));
+		System.out.println(buy);
+		return buy;
+	}
+	
+	public static JSONObject sellPacket() {
+		JSONObject sell = new JSONObject();
+		sell.put("token", setting.get("token"));
+		sell.put("ticker", setting.get("ticker"));
+		sell.put("amount", setting.get("amount"));
+		System.out.println(sell);
+		return sell;
+	}
+	
 }
