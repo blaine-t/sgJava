@@ -59,17 +59,6 @@ public class Sockets {
 
 	
 	// Event listeners
-	public static void time() {
-		socket.on("time", new Emitter.Listener() {
-
-			@Override
-			public void call(Object... args) {
-				System.out.println("Time:" + args[0]);
-			}
-
-		});
-	}
-
 	public static void error() {
 		socket.on("error", new Emitter.Listener() {
 
@@ -112,6 +101,36 @@ public class Sockets {
 	
 	public static void disband() {
 		socket.on("disband", new Emitter.Listener() {
+
+			@Override
+			public void call(Object... args) {
+				System.out.println(args[0]);
+			}
+		});
+	}
+	
+	public static void game() {
+		socket.on("game", new Emitter.Listener() {
+
+			@Override
+			public void call(Object... args) {
+				System.out.println(args[0]);
+			}
+		});
+	}
+	
+	public static void date() {
+		socket.on("date", new Emitter.Listener() {
+
+			@Override
+			public void call(Object... args) {
+				System.out.println(args[0]);
+			}
+		});
+	}
+	
+	public static void time() {
+		socket.on("time", new Emitter.Listener() {
 
 			@Override
 			public void call(Object... args) {

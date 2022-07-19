@@ -2,6 +2,7 @@ package sgJava;
 
 import java.net.URI;
 
+import acm.graphics.GLabel;
 import hgl.*;
 
 import io.socket.client.IO;
@@ -30,6 +31,10 @@ public class Main extends Positioning {
 		});
 		socket.connect();
 		return(socket);
+	}
+	
+	public static void textDefaults(GLabel label) {
+		
 	}
 
 }
