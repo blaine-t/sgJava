@@ -111,6 +111,7 @@ public class Title extends Main  {
 			pause(REFRESH);
 		}
 		removeAll();
+		forceUpdate = true;
 	}
 
 
