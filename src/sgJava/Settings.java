@@ -16,6 +16,8 @@ public class Settings {
 		
 		updateString("token","12345-ABCDE-00001");
 		updateString("friendly","DEFAULT");
+		updateInt("code",000000);
+		
 		updateInt("capital",15000);
 		updateInt("length",5);
 		

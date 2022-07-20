@@ -110,9 +110,9 @@ public class Options extends Title {
 				percentLabel(authData, optionsDataFontSize);
 				percentLabel(nameData, optionsDataFontSize);
 				
-				percentObjRel(serverData,5,15,serverBox,true);
-				percentObjRel(authData,5,15,authBox,true);
-				percentObjRel(nameData,5,15,nameBox,true);
+				percentObjRel(serverData,5,17.5,serverBox,true);
+				percentObjRel(authData,5,17.5,authBox,true);
+				percentObjRel(nameData,5,17.5,nameBox,true);
 
 				// Update the variables to be correct
 				oldWidth = width;
@@ -135,7 +135,7 @@ public class Options extends Title {
 					else if (object == serverBox) {
 						println("server");
 						// Prompt user for URL and store it and show it
-						String serverAddress = dialog.readLine("What server address do you want to use? ");
+						String serverAddress = dialog.readLine("What server address do you want to use?");
 						Settings.updateString("URL",serverAddress);
 						serverData.setLabel(serverAddress);
 					}
@@ -149,7 +149,7 @@ public class Options extends Title {
 					else if (object == nameBox) {
 						println("name");
 						// Prompt user for auth token and store it and show it
-						String name = dialog.readLine("What auth token do you want to use?");
+						String name = dialog.readLine("What username do you want to use?");
 						Settings.updateString("friendly",name);
 						nameData.setLabel(name);
 					}

@@ -81,6 +81,7 @@ public class Init extends Stats {
 			case "title":
 				drawTitle();
 				break;
+				
 			case "options":
 				drawOptions();
 				break;
