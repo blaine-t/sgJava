@@ -14,6 +14,9 @@ public class Main extends Positioning {
 	static int width = 0;
 	static int height = 0;
 	static boolean forceUpdate = true;
-
+	
+	static int mouseX = 0;
+	static int mouseY = 0;
+	static boolean mousePress = false;
 	
 }

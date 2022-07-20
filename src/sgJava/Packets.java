@@ -15,6 +15,7 @@ public class Packets extends Settings {
 		return auth;
 	}
 	
+	
 	public static JSONObject startPacket() {
 		JSONObject start = new JSONObject();
 		start.put("token", setting.get("token"));
@@ -25,6 +26,7 @@ public class Packets extends Settings {
 		return start;
 	}
 	
+	
 	public static JSONObject buyPacket() {
 		JSONObject buy = new JSONObject();
 		buy.put("token", setting.get("token"));
@@ -34,6 +36,7 @@ public class Packets extends Settings {
 		return buy;
 	}
 	
+	
 	public static JSONObject sellPacket() {
 		JSONObject sell = new JSONObject();
 		sell.put("token", setting.get("token"));
@@ -41,6 +44,5 @@ public class Packets extends Settings {
 		sell.put("amount", setting.get("amount"));
 		System.out.println(sell);
 		return sell;
-	}
-	
+	}	
 }

@@ -8,31 +8,24 @@ import acm.graphics.GObject;
 import acm.graphics.GRect;
 import acm.graphics.GRoundRect;
 
-public class Title extends Main  {
+public class Options extends Title {
 
-	private static final long serialVersionUID = 8736023688668374202L;
+	private static final long serialVersionUID = 3696910690026843656L;
 
-	public void drawTitle() {
-
+	public void drawOptions() {
 		// Writes the title
-		GLabel title1 = new GLabel("STOCK");
-		GLabel title2 = new GLabel("GAME");
+		GLabel title = new GLabel("OPTIONS");
 
-		GLabel[] titleTitles = {title1,title2};
+		title.setColor(Color.WHITE);
+		title.setFont("IMPACT");
+		add(title);
 
-		titleSetup(titleTitles);
-
-		// Draws the stock line through the screen
-		GLine titleLine1 = new GLine(0,0,0,0);
-		GLine titleLine2 = new GLine(0,0,0,0);
-		GLine titleLine3 = new GLine(0,0,0,0);
-		GLine titleLine4 = new GLine(0,0,0,0);
-		GLine titleLine5 = new GLine(0,0,0,0);
-
-		GLine[] titleLines = {titleLine1,titleLine2,titleLine3,titleLine4,titleLine5};
-
-		titleLineSetup(titleLines);
-
+		// Draws the bounding box on the screen
+		GRoundRect boundingBox = new GRoundRect(0, 0);
+		
+		boundingBox.setColor(Color.WHITE);
+		add(boundingBox);
+		
 		// Draws the buttons
 		GLabel playLabel = new GLabel("Play");
 		GRoundRect playButton = new GRoundRect(0,0,0,0);
@@ -57,7 +50,7 @@ public class Title extends Main  {
 			// Update width and height of the canvas
 			width = getWidth();
 			height = getHeight();
-			
+
 			if (width != oldWidth || height != oldHeight || forceUpdate) { // Only run updates when canvas changes size
 
 				percentLabel(title1, 96);
@@ -79,21 +72,21 @@ public class Title extends Main  {
 				rectLabel(playLabel, playButton, 50, 60, titleButtonsPadding, null);
 				rectLabel(optionsLabel, optionsButton, 50, 200, titleButtonsPadding, playButton);
 				rectLabel(exitLabel, exitButton, 50, 200, titleButtonsPadding, optionsButton);
-				
+
 				// Update the variables to be correct
 				oldWidth = width;
 				oldHeight = height;
 				forceUpdate = false;
 
 			}
-			
+
 			if (mousePress) {
 				mousePress = false;
-				
+
 				GObject object = getElementAt(mouseX,mouseY); //Grab object at mouse location
-				
+
 				if (object != null) {
-					
+
 					if (object == playButton) {
 						println("play");
 						Settings.updateString("screen", "play");
@@ -112,21 +105,6 @@ public class Title extends Main  {
 		}
 		removeAll();
 	}
-
-
-	/**
-	 * Sets the color and font of the title of the title page
-	 */
-	private void titleSetup(GLabel[] titleTitles) {
-
-		for (int i = 0; i<titleTitles.length; i++) {
-
-			titleTitles[i].setColor(Color.WHITE);
-			titleTitles[i].setFont("IMPACT");
-			add(titleTitles[i]);
-		}
-	}
-
 
 	/**
 	 * Sets the color of the lines on the title page

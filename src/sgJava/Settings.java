@@ -14,13 +14,15 @@ public class Settings {
 		updateBool("host",false);
 		updateBool("ready",false);
 		
-		updateString("token","12345-ABCDE-00002");
+		updateString("token","12345-ABCDE-00001");
 		updateString("friendly","DEFAULT");
 		updateInt("capital",15000);
 		updateInt("length",5);
 		
 		updateString("ticker","PAR");
 		updateInt("amount",0);
+		
+		updateString("screen","title");
 	}
 	
 	// Creates the JSON object to store the values of settings

@@ -2,12 +2,19 @@ package sgJava;
 
 // Add color support to set the background color of the canvas
 import java.awt.Color;
+// Add mouse support to allow for user mouse input
+import java.awt.event.MouseEvent;
 
-public class Init extends Title {
+
+public class Init extends Stats {
 
 	private static final long serialVersionUID = -1196351898484999418L;
 
 	public void run() {
+
+		// Add mouse and keyboard support
+		addMouseListeners();
+		addKeyListeners();
 
 		setSize(1280,720); // Set default window to 720p
 		setBackground(Color.BLACK); // Sets background to black
@@ -44,7 +51,7 @@ public class Init extends Title {
 		// Asks the server to leave
 		Sockets.leave();
 
-		
+
 		// Initializes event listeners
 
 		// Checks the UNIX time stamp
@@ -67,8 +74,40 @@ public class Init extends Title {
 
 		// Checks for game events
 		Sockets.game();
-
-		// Draws the title screen
-		drawTitle();
+		
+		while (true) {
+			String screen = (String) Settings.setting.get("screen");
+			switch(screen) {
+			case "title":
+				drawTitle();
+				break;
+			case "options":
+				drawOptions();
+				break;
+			case "play":
+				drawPlay();
+				break;
+			case "hostLobby":
+				drawHostLobby();
+				break;
+			case "joinLobby":
+				drawJoinLobby();
+				break;
+			case "game":
+				drawGame();
+				break;
+			case "stats":
+				drawStats();
+			}
+		}
+	}
+	
+	@Override
+	public void mousePressed (MouseEvent m) {
+		mouseX = m.getX();
+		mouseY = m.getY();
+		mousePress = true;
+		
+		println("X: " + mouseX + " Y: " + mouseY);
 	}
 }
