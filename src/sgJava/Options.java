@@ -45,15 +45,15 @@ public class Options extends Title {
 		// Draws the input boxes and their labels
 		GLabel serverLabel = new GLabel("Server:");
 		GRect serverBox = new GRect(0,0,0,0);
-		GLabel serverData = new GLabel("wss://sg.bathost.net");
+		GLabel serverData = new GLabel(Settings.setting.getString("URL"));
 
 		GLabel authLabel = new GLabel("Auth:");
 		GRect authBox = new GRect(0,0,0,0);
-		GLabel authData = new GLabel("12345-ABCDE-00001");
+		GLabel authData = new GLabel(Settings.setting.getString("token"));
 
 		GLabel nameLabel = new GLabel("Name:");
 		GRect nameBox = new GRect(0,0,0,0);
-		GLabel nameData = new GLabel("Hello");
+		GLabel nameData = new GLabel(Settings.setting.getString("friendly"));
 
 		GLabel[] optionLabels = {serverLabel,authLabel,nameLabel};
 		GRect[] optionBoxes = {serverBox,authBox,nameBox};
@@ -76,7 +76,7 @@ public class Options extends Title {
 			if (width != oldWidth || height != oldHeight || forceUpdate) { // Only run updates when canvas changes size
 
 				// Bounding box dynamic size and location
-				percentObjSize(boundingBox, 60, 60);
+				percentObjSize(boundingBox, 60, 60, null);
 				percentObjRel(boundingBox,50,50,null,false);
 				
 				// Title dynamic size and location
@@ -87,24 +87,23 @@ public class Options extends Title {
 				percentLabel(backLabel, optionBackButtonFontSize);
 				rectLabel(backLabel, backButton, 50, 115, optionBackButtonPadding, boundingBox);
 				
+				// Entry boxes dynamic size and location
+				percentObjSize(serverBox, 60, 15, boundingBox);
+				percentObjSize(authBox, 60, 15, boundingBox);
+				percentObjSize(nameBox, 60, 15, boundingBox);
+				
+				percentObjRel(serverBox,32,10,boundingBox,true);
+				percentObjRel(authBox,32,40,boundingBox,true);
+				percentObjRel(nameBox,32,70,boundingBox,true);
+				
 				// Labels dynamic font and location
 				percentLabel(serverLabel, optionsLabelsFontSize);
 				percentLabel(authLabel, optionsLabelsFontSize);
 				percentLabel(nameLabel, optionsLabelsFontSize);
 				
-				percentObjRel(serverLabel,10,10,boundingBox,true);
-				percentObjRel(authLabel,10,40,boundingBox,true);
-				percentObjRel(nameLabel,10,70,boundingBox,true);
-				
-				//TODO: MAKE RELATIVE TO BOUNDING BOX AND PERCENTLINE RELATIVE
-				// Entry boxes dynamic size and location
-				percentObjSize(serverBox, 35, 7);
-				percentObjSize(authBox, 35, 7);
-				percentObjSize(nameBox, 35, 7);
-				
-				percentObjRel(serverBox,250,-25,serverLabel,false);
-				percentObjRel(authBox,350,-25,authLabel,false);
-				percentObjRel(nameBox,350,-25,nameLabel,false);
+				percentObjRel(serverLabel,-50,0,serverBox,true);
+				percentObjRel(authLabel,-50,0,authBox,true);
+				percentObjRel(nameLabel,-50,0,nameBox,true);
 				
 				// Entry text dynamic font and location
 				percentLabel(serverData, optionsDataFontSize);
@@ -152,7 +151,7 @@ public class Options extends Title {
 						// Prompt user for auth token and store it and show it
 						String name = dialog.readLine("What auth token do you want to use?");
 						Settings.updateString("friendly",name);
-						authData.setLabel(name);
+						nameData.setLabel(name);
 					}
 				}
 			}

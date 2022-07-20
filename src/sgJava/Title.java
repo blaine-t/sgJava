@@ -66,11 +66,11 @@ public class Title extends Main  {
 				percentObjRel(title1, 50, 30, null, false);
 				percentObjRel(title2, 50, 10, title1, true);
 
-				percentLine(titleLine1, 20, 59, 44, 35);
-				percentLine(titleLine2, 44, 35, 60, 35);
-				percentLine(titleLine3, 60, 35, 80, 15);
-				percentLine(titleLine4, 80, 15, 78, 16);
-				percentLine(titleLine5, 80, 15, 78, 18);
+				percentLine(titleLine1, 20, 59, 44, 35, null);
+				percentLine(titleLine2, 44, 35, 60, 35, null);
+				percentLine(titleLine3, 60, 35, 80, 15, null);
+				percentLine(titleLine4, 80, 15, 78, 16, null);
+				percentLine(titleLine5, 80, 15, 78, 18, null);
 
 				percentLabel(playLabel, titleButtonsFontSize);
 				percentLabel(optionsLabel, titleButtonsFontSize);
