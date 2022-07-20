@@ -8,6 +8,6 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="lib" path="lib/acm.jar"/>
-	<classpathentry kind="lib" path="lib/hgl.jar"/>
+	<classpathentry kind="lib" path="lib/hgl-1.0.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

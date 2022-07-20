@@ -8,7 +8,7 @@ public class Settings {
 	/**
 	 * Setup initial setting values so game doesn't break
 	 */
-	public static void init() {
+	public static void defaults() {
 		
 		updateString("URL","ws://localhost:25056");
 		updateBool("host",false);
