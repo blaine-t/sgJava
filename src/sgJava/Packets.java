@@ -26,6 +26,14 @@ public class Packets extends Settings {
 		return start;
 	}
 	
+	public static JSONObject joinPacket() {
+		JSONObject join = new JSONObject();
+		join.put("token", setting.get("token"));
+		join.put("code",setting.get("code"));
+		System.out.println(join);
+		return join;
+	}
+	
 	
 	public static JSONObject buyPacket() {
 		JSONObject buy = new JSONObject();

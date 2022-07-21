@@ -16,7 +16,7 @@ public class Settings {
 		
 		updateString("token","12345-ABCDE-00001");
 		updateString("friendly","DEFAULT");
-		updateInt("code",000000);
+		updateInt("code",123456);
 		
 		updateInt("capital",15000);
 		updateInt("length",5);
@@ -25,6 +25,8 @@ public class Settings {
 		updateInt("amount",0);
 		
 		updateString("screen","title");
+		
+		updateBool("ready",false);
 	}
 	
 	// Creates the JSON object to store the values of settings

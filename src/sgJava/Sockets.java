@@ -11,6 +11,7 @@ import io.socket.client.Socket;
 public class Sockets {
 
 	static Socket socket;
+	static Object players;
 	
 	/**
 	 * Initialize a connection to the server
@@ -46,10 +47,18 @@ public class Sockets {
 	
 	
 	/**
-	 * Sends a host packet to the server to access the server if the user can host a lobby
+	 * Sends a host packet to the server to ask the server if the user can host a lobby
 	 */
 	public static void host() {
 		socket.emit("host", Settings.setting.get("token"));
+		System.out.println("Sending a host request");
+	}
+	
+	/**
+	 * Sends a join packet to the server to ask the server if the lobby exists
+	 */
+	public static void join() {
+		socket.emit("join", Packets.joinPacket());
 		System.out.println("Sending a host request");
 	}
 	
@@ -155,7 +164,7 @@ public class Sockets {
 
 			@Override
 			public void call(Object... args) {
-				System.out.println(args[0]);
+				Settings.updateInt("code", (int) args[0]);
 			}
 		});
 	}
@@ -169,7 +178,8 @@ public class Sockets {
 
 			@Override
 			public void call(Object... args) {
-				System.out.println(args[0]);
+				players = args[0];
+				System.out.println(players);
 			}
 		});
 	}

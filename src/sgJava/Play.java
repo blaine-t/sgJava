@@ -13,6 +13,34 @@ public class Play extends Options {
 	private static final long serialVersionUID = -7807190118393440137L;
 
 	public void drawPlay() {
+
+		// Connect to websocket and authenticate
+		Sockets.connect();
+		Sockets.auth();
+
+		// Initializes event listeners
+
+		// Checks the in game time
+		Sockets.time();
+
+		//Checks for any error codes sent
+		Sockets.error();
+
+		// Checks for any success codes sent
+		Sockets.success();
+
+		// Checks for codes given to host
+		Sockets.code();
+
+		// Checks for player list when user joins or leaves or readys
+		Sockets.players();
+
+		// Checks if the host has left the lobby and the lobby has been disbanded 
+		Sockets.disband();
+
+		// Checks for game events
+		Sockets.game();
+
 		// Initializes the dialog box
 		IODialog dialog = new IODialog();
 
@@ -155,6 +183,7 @@ public class Play extends Options {
 					// TODO: Add better logic to handle errors
 					else if (object == hostButton) {
 						println("host");
+						Sockets.host();
 						Settings.updateString("screen", "hostLobby");
 					}
 					else if (object == joinButton) {
