@@ -6,7 +6,7 @@ import java.awt.Color;
 import java.awt.event.MouseEvent;
 
 
-public class Init extends Stats {
+public class Init extends Game {
 
 	private static final long serialVersionUID = -1196351898484999418L;
 
@@ -48,9 +48,6 @@ public class Init extends Stats {
 				
 			case "game":
 				drawGame();
-				break;
-			case "stats":
-				drawStats();
 				break;
 			}
 		}
