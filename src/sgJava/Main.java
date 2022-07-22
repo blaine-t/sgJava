@@ -21,8 +21,6 @@ public class Main extends Positioning {
 	static int mouseY = 0;
 	static boolean mousePress = false;
 	
-	static boolean gameRunning = false;
-	
 	static Object players;
 	
 	static GLabel player1 = new GLabel("", 0,0);
