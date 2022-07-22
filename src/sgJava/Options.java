@@ -129,25 +129,21 @@ public class Options extends Title {
 				if (object != null) {
 
 					if (object == backButton) {
-						println("title");
 						Settings.updateString("screen", "title");
 					}
 					else if (object == serverBox) {
-						println("server");
 						// Prompt user for URL and store it and show it
 						String serverAddress = dialog.readLine("What server address do you want to use?");
 						Settings.updateString("URL",serverAddress);
 						serverData.setLabel(serverAddress);
 					}
 					else if (object == authBox) {
-						println("auth");
 						// Prompt user for auth token and store it and show it
 						String authToken = dialog.readLine("What auth token do you want to use?");
 						Settings.updateString("token",authToken);
 						authData.setLabel(authToken);
 					}
 					else if (object == nameBox) {
-						println("name");
 						// Prompt user for auth token and store it and show it
 						String name = dialog.readLine("What username do you want to use?");
 						Settings.updateString("friendly",name);

@@ -95,15 +95,12 @@ public class Title extends Main  {
 				if (object != null) {
 					
 					if (object == playButton) {
-						println("play");
 						Settings.updateString("screen", "play");
 					}
 					else if (object == optionsButton) {
-						println("options");
 						Settings.updateString("screen", "options");
 					}
 					else if (object == exitButton) {
-						println("exit");
 						System.exit(0);
 					}
 				}

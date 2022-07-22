@@ -212,17 +212,15 @@ public class Lobby extends Play {
 
 					if (object == leaveButton) {
 						Sockets.leave();
-						println("leave");
 						Settings.updateString("screen", "play");
 					}
 					else if (object == startButton) {
 						Sockets.start();
-						println("start");
 						Settings.updateString("screen", "game");
 
 					}
 					else if (object == readyButton) {
-						println("ready");
+
 						if (Settings.setting.getBoolean("ready")) {
 							Sockets.unready();
 							readyLabel.setLabel("READY");
@@ -233,19 +231,16 @@ public class Lobby extends Play {
 							Sockets.ready();
 							readyLabel.setLabel("CANCEL");
 							forceUpdate = true;
-							println("ready");
 							Settings.updateBool("ready", true);
 						}
 					}
 					else if (object == capitalBox) {
-						println("capital");
 						// Prompt user for money and store it and show it
 						int capital = dialog.readInt("How much money should users start with?");
 						Settings.updateInt("capital",capital);
 						capitalData.setLabel("$" + Integer.toString(capital));
 					}
 					else if (object == daysBox) {
-						println("days");
 						// Prompt user for days and store it and show it
 						int days = dialog.readInt("How many days should the game last?");
 						Settings.updateInt("days",days);
@@ -411,11 +406,9 @@ public class Lobby extends Play {
 
 					if (object == leaveButton) {
 						Sockets.leave();
-						println("leave");
 						Settings.updateString("screen", "play");
 					}
 					else if (object == readyButton) {
-						println("ready");
 						if (Settings.setting.getBoolean("ready")) {
 							Sockets.unready();
 							readyLabel.setLabel("READY");
@@ -426,7 +419,6 @@ public class Lobby extends Play {
 							Sockets.ready();
 							readyLabel.setLabel("CANCEL");
 							forceUpdate = true;
-							println("ready");
 							Settings.updateBool("ready", true);
 						}
 					}

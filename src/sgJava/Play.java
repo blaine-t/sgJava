@@ -163,18 +163,15 @@ public class Play extends Options {
 				if (object != null) {
 
 					if (object == backButton) {
-						println("title");
 						Settings.updateString("screen", "title");
 					}
 					else if (object == codeBox) {
-						println("code");
 						// Prompt user for URL and store it and show it
 						int code = dialog.readInt("Join code?");
 						Settings.updateInt("code",code);
 						codeData.setLabel(Integer.toString(code));
 					}
 					else if (object == nameBox) {
-						println("name");
 						// Prompt user for friendly and store it and show it
 						String name = dialog.readLine("What username do you want to use?");
 						Settings.updateString("friendly",name);
@@ -182,12 +179,10 @@ public class Play extends Options {
 					}
 					// TODO: Add better logic to handle errors
 					else if (object == hostButton) {
-						println("host");
 						Sockets.host();
 						Settings.updateString("screen", "hostLobby");
 					}
 					else if (object == joinButton) {
-						println("join");
 						Sockets.join();
 						Settings.updateString("screen", "joinLobby");
 					}

@@ -90,16 +90,12 @@ public class Game extends Lobby {
 
 	// Size of small UI fonts at 1080p
 	private static final int LARGE_FONT_SIZE = 60;
-
-
-	public void run() {
-		setSize(1280,720); // Set default window to 720p
-		setBackground(Color.BLACK); // Sets background to black
-		addMouseListeners();
-		addKeyListeners();
-		Settings.defaults();
-		drawGame();
-	}
+	
+	// Multiplier in which to multiply the selection box so it is highlighting the right stock
+	private static int SELECTION_MULTIPLIER = 0;
+	
+	// Boolean that forces the graph to redraw even without resolution change
+	private static boolean forceGraph = false;
 
 	public void drawGame() {
 
@@ -168,11 +164,15 @@ public class Game extends Lobby {
 
 		// Declares bottom label
 		GLabel bottomLabel = new GLabel("Shares: 0 ($0) Average: $0.00",0,0);
+		
+		// Declares the selecting box for stocks
+		GRect selectionBox = new GRect(0,0,0,0);
 
 		// Custom color variables
 		Color lightBar = new Color(70,70,70);
 		Color darkBar = new Color(45,45,45);
 		Color dashColor = new Color(217,217,217);
+		Color selectColor = new Color(60,60,60);
 
 		// END OF VARIABLE DECLARATION
 
@@ -219,6 +219,11 @@ public class Game extends Lobby {
 
 		// LEFT SIDE OF SCREEN
 
+		// Setup selection box
+		selectionBox.setColor(selectColor);
+		selectionBox.setFilled(true);
+		add(selectionBox);
+		
 		// Setup stocks boxes
 		for (int i = 0; i < stocks.length; i++) {
 			GRect stock = new GRect(0,0,0,0);
@@ -282,7 +287,13 @@ public class Game extends Lobby {
 			height = getHeight();
 
 			if (width != oldWidth || height != oldHeight || forceUpdate) { // Only run updates when canvas changes size
-
+				
+				// Disable force update
+				forceUpdate = false;
+				
+				// Update the graph
+				forceGraph = true;
+				
 				// LEFT SIDE OF SCREEN
 
 				// Sets location and size of stocks
@@ -316,6 +327,7 @@ public class Game extends Lobby {
 
 				percentLabel(clock, LARGE_FONT_SIZE);
 				percentObjRel(clock, 50, 50, clockBox, false);
+				clock.setLabel(time);
 
 				// Sets the location and size of history
 				percentObjSize(historyBox, RIGHT_PERCENT_WIDTH, RIGHT_HISTORY_HEIGHT, null);
@@ -355,7 +367,26 @@ public class Game extends Lobby {
 				// Sets up location and size of bottom label
 				percentLabel(bottomLabel, LARGE_FONT_SIZE);
 				percentObjRel(bottomLabel, 125, 0, sellButton, true);
-
+			}
+			
+			// If resolution changes or stock changes redraw the graph
+			if (forceGraph) {
+				
+				// Disable graph update
+				forceGraph = false;
+				
+				//TODO: REDRAW THE GRAPH
+				
+				// Selector
+				percentObjSize(selectionBox, LEFT_PERCENT_WIDTH, LEFT_STOCKS_HEIGHT/stocks.length, null);
+				percentObjRel(selectionBox, LEFT_PERCENT_X1,LEFT_STOCKS_Y1+(LEFT_STOCKS_HEIGHT*SELECTION_MULTIPLIER/stocks.length), null, true);
+				
+				
+				// Bottom label
+				bottomLabel.setLabel(""); //TODO: MAKE LABEL ACTUALLY HAVE DATA
+				
+				// Graph
+				//TODO: GRAPH DRAWING
 			}
 			// START MOUSE EVENTS
 
@@ -363,7 +394,6 @@ public class Game extends Lobby {
 				mousePress = false;
 
 				GObject object = getElementAt(mouseX,mouseY); //Grab object at mouse location
-				println(object);
 
 				if (object != null) {
 
@@ -377,9 +407,57 @@ public class Game extends Lobby {
 					}
 				}
 			}
+			if (keyPress) {
+				keyPress = false;
+				
+				switch(key) {
+				case "0":
+					setStock(tickers[0],0);
+					break;
+				case "1":
+					setStock(tickers[1],1);
+					break;
+				case "2":
+					setStock(tickers[2],2);
+					break;
+				case "3":
+					setStock(tickers[3],3);
+					break;
+				case "4":
+					setStock(tickers[4],4);
+					break;
+				case "5":
+					setStock(tickers[5],5);
+					break;
+				case "6":
+					setStock(tickers[6],6);
+					break;
+				case "7":
+					setStock(tickers[7],7);
+					break;
+				case "8":
+					setStock(tickers[8],8);
+					break;
+				case "9":
+					setStock(tickers[9],9);
+					break;
+				case "B":
+					mousePress = true;
+					println(buyButton.getX());
+					mouseX = (int) buyButton.getX()+1;
+					mouseY = (int) buyButton.getY()+1;
+					break;
+				case "S":
+					mousePress = true;
+					mouseX = (int) sellButton.getX()+1;
+					mouseY = (int) buyButton.getY()+1;
+					break;
+				}
+			}
 			
 			oldWidth = width;
 			oldHeight = height;
+			
 			pause(REFRESH);
 		}
 
@@ -404,5 +482,12 @@ public class Game extends Lobby {
 	private void setupBox (GRect box) {
 		box.setColor(Color.WHITE);
 		add(box);
+	}
+	
+	
+	private void setStock(GLabel ticker, int i) {
+		Settings.updateString("ticker", ticker.getLabel());
+		SELECTION_MULTIPLIER = i;
+		forceGraph = true;
 	}
 }

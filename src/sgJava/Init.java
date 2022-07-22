@@ -2,6 +2,7 @@ package sgJava;
 
 // Add color support to set the background color of the canvas
 import java.awt.Color;
+import java.awt.event.KeyEvent;
 // Add mouse support to allow for user mouse input
 import java.awt.event.MouseEvent;
 
@@ -22,43 +23,87 @@ public class Init extends Game {
 		// Initializes default settings
 		Settings.defaults();
 
-		
+
 		while (true) {
 			String screen = (String) Settings.setting.get("screen");
 			switch(screen) {
 			case "title":
 				drawTitle();
 				break;
-				
+
 			case "options":
 				drawOptions();
 				break;
-				
+
 			case "play":
 				drawPlay();
 				break;
-				
+
 			case "hostLobby":
 				drawHostLobby();
 				break;
-				
+
 			case "joinLobby":
 				drawJoinLobby();
 				break;
-				
+
 			case "game":
 				drawGame();
 				break;
 			}
 		}
 	}
-	
+
 	@Override
 	public void mousePressed (MouseEvent m) {
 		mouseX = m.getX();
 		mouseY = m.getY();
 		mousePress = true;
+	}
+
+	@Override 
+	public void keyPressed (KeyEvent e) {
+		keyPress = true;
 		
-		println("X: " + mouseX + " Y: " + mouseY);
+		int keyCode = e.getKeyCode();
+		
+		switch (keyCode) {
+		case KeyEvent.VK_0: 
+			key = "0";
+			break;
+		case KeyEvent.VK_1: 
+			key = "1";
+			break;
+		case KeyEvent.VK_2: 
+			key = "2";
+			break;
+		case KeyEvent.VK_3: 
+			key = "3";
+			break;
+		case KeyEvent.VK_4: 
+			key = "4";
+			break;
+		case KeyEvent.VK_5: 
+			key = "5";
+			break;
+		case KeyEvent.VK_6: 
+			key = "6";
+			break;
+		case KeyEvent.VK_7: 
+			key = "7";
+			break;
+		case KeyEvent.VK_8: 
+			key = "8";
+			break;
+		case KeyEvent.VK_9: 
+			key = "9";
+			break;
+		case KeyEvent.VK_B: 
+			key = "B";
+			break;
+		case KeyEvent.VK_S: 
+			key = "S";
+			break;
+		}
 	}
 }

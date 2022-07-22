@@ -11,7 +11,6 @@ import io.socket.client.Socket;
 public class Sockets {
 
 	static Socket socket;
-	static Object players;
 	
 	/**
 	 * Initialize a connection to the server
@@ -226,7 +225,7 @@ public class Sockets {
 
 			@Override
 			public void call(Object... args) {
-				System.out.println(args[0]);
+				Main.time = (String) args[0];
 			}
 		});
 	}

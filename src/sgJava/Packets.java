@@ -11,7 +11,6 @@ public class Packets extends Settings {
 		auth.put("friendly", setting.get("friendly"));
 		auth.put("ready", setting.get("ready"));
 		auth.put("host",setting.get("host"));
-		System.out.println(auth);
 		return auth;
 	}
 	
@@ -22,7 +21,6 @@ public class Packets extends Settings {
 		start.put("capital", setting.get("capital"));
 		start.put("length", setting.get("length"));
 		start.put("host",setting.get("host"));
-		System.out.println(start);
 		return start;
 	}
 	
@@ -30,7 +28,6 @@ public class Packets extends Settings {
 		JSONObject join = new JSONObject();
 		join.put("token", setting.get("token"));
 		join.put("code",setting.get("code"));
-		System.out.println(join);
 		return join;
 	}
 	
@@ -40,7 +37,6 @@ public class Packets extends Settings {
 		buy.put("token", setting.get("token"));
 		buy.put("ticker", setting.get("ticker"));
 		buy.put("amount", setting.get("amount"));
-		System.out.println(buy);
 		return buy;
 	}
 	
@@ -50,7 +46,6 @@ public class Packets extends Settings {
 		sell.put("token", setting.get("token"));
 		sell.put("ticker", setting.get("ticker"));
 		sell.put("amount", setting.get("amount"));
-		System.out.println(sell);
 		return sell;
 	}	
 }

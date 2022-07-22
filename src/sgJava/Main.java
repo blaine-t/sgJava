@@ -21,6 +21,12 @@ public class Main extends Positioning {
 	static int mouseY = 0;
 	static boolean mousePress = false;
 	
+	static String key = "A";
+	static boolean keyPress = false;
+	
+	static String time = "09:00";
+	
+	
 	static Object players;
 	
 	static GLabel player1 = new GLabel("", 0,0);
