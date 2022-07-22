@@ -59,7 +59,7 @@ public class Sockets {
 	 */
 	public static void join() {
 		socket.emit("join", Packets.joinPacket());
-		System.out.println("Sending a host request");
+		System.out.println("Sending a join request");
 	}
 	
 	
@@ -113,15 +113,6 @@ public class Sockets {
 	public static void sell() {
 		socket.emit("sell", Packets.sellPacket());
 		System.out.println("Sending a sell request");
-	}
-	
-	
-	/**
-	 * Sends a magic packet to the server that crashes it
-	 */
-	public static void crash() {
-		socket.emit("ping", "crash");
-		System.out.println("Sending a crash request");
 	}
 
 	
@@ -178,9 +169,9 @@ public class Sockets {
 
 			@Override
 			public void call(Object... args) {
-				players = args[0];
-				System.out.println(players);
-			}
+				Main.players = args[0];
+				
+			}			
 		});
 	}
 	

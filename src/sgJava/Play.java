@@ -188,6 +188,7 @@ public class Play extends Options {
 					}
 					else if (object == joinButton) {
 						println("join");
+						Sockets.join();
 						Settings.updateString("screen", "joinLobby");
 					}
 				}

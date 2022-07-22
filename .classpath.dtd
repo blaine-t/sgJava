@@ -1,0 +1,9 @@
+<!ELEMENT classpath (classpathentry+)>
+<!ELEMENT classpathentry (attributes?)>
+<!ATTLIST classpathentry kind NMTOKEN #REQUIRED>
+<!ATTLIST classpathentry path CDATA #REQUIRED>
+<!ATTLIST classpathentry output CDATA #IMPLIED>
+<!ELEMENT attributes (attribute+)>
+<!ELEMENT attribute EMPTY>
+<!ATTLIST attribute name NMTOKEN #REQUIRED>
+<!ATTLIST attribute value NMTOKEN #FIXED "true">
