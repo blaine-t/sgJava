@@ -24,7 +24,7 @@ public class Settings {
 		updateString("ticker","PAR");
 		updateInt("amount",0);
 		
-		updateString("screen","game");
+		updateString("screen","title");
 		
 		updateBool("ready",false);
 	}
