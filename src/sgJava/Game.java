@@ -203,7 +203,6 @@ public class Game extends Lobby {
 
 		// Setup lines for the graph
 		for (int i = 0; i < lines.length; i++) {
-			//TODO: MAKE LINES
 		}
 
 		// Setup dot lines for the graph
@@ -387,6 +386,25 @@ public class Game extends Lobby {
 				
 				// Graph
 				//TODO: GRAPH DRAWING
+				for (int i = 0; i < lines.length; i++) {
+					if (lines[i] != null) {
+						remove(lines[i]);
+					}
+					GPolygon line = thickLine(0, 50, 100, 75, 50, bars[i]);
+					lines[i] = line;
+					line.setFilled(true);
+					if (75 - 50 == 0) {
+						line.setColor(Color.YELLOW);
+					}
+					else if (75 - 50 < 0) {
+						line.setColor(Color.GREEN);
+					}
+					else {
+						line.setColor(Color.RED);
+					}
+					add(lines[i]);
+				}
+				
 			}
 			// START MOUSE EVENTS
 
