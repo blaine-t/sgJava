@@ -201,7 +201,19 @@ public class Sockets {
 			}
 		});
 	}
-	
+
+	/**
+	 * Listens for stocks sent from the server
+	 */
+	public static void stocks() {
+		socket.on("stocks", new Emitter.Listener() {
+
+			@Override
+			public void call(Object... args) {
+				Game.updateCurrentStocks((String) args[0]);
+			}
+		});
+	}
 	
 	/**
 	 * Listens for date of game from the server

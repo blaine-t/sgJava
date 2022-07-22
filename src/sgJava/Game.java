@@ -96,6 +96,9 @@ public class Game extends Lobby {
 	
 	// Boolean that forces the graph to redraw even without resolution change
 	private static boolean forceGraph = false;
+	
+	// Data for current stock prices
+	private static double[] currentStockPrices = new double[STOCKS];
 
 	public void drawGame() {
 
@@ -173,6 +176,9 @@ public class Game extends Lobby {
 		Color darkBar = new Color(45,45,45);
 		Color dashColor = new Color(217,217,217);
 		Color selectColor = new Color(60,60,60);
+		
+		// Creates variables to store values sent to client by server
+		double[][] stockPrices = new double[STOCKS][GRAPH_LINES];
 
 		// END OF VARIABLE DECLARATION
 
@@ -507,5 +513,13 @@ public class Game extends Lobby {
 		Settings.updateString("ticker", ticker.getLabel());
 		SELECTION_MULTIPLIER = i;
 		forceGraph = true;
+	}
+	
+	
+	public static void updateCurrentStocks(String priceBlock) {
+		for (int i = 0; i < STOCKS; i++) {
+			String[] prices = priceBlock.split(",");
+			currentStockPrices[i] =  Double.parseDouble(prices[i]);
+		}
 	}
 }
