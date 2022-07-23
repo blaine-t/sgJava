@@ -6,6 +6,7 @@ import acm.graphics.GLabel;
 import acm.graphics.GObject;
 import acm.graphics.GPolygon;
 import acm.graphics.GRect;
+
 import acm.io.IODialog;
 
 public class Game extends Lobby {
@@ -90,15 +91,23 @@ public class Game extends Lobby {
 
 	// Size of small UI fonts at 1080p
 	private static final int LARGE_FONT_SIZE = 60;
-	
+
 	// Multiplier in which to multiply the selection box so it is highlighting the right stock
 	private static int SELECTION_MULTIPLIER = 0;
-	
+
 	// Boolean that forces the graph to redraw even without resolution change
 	private static boolean forceGraph = false;
-	
+
+	// Boolean that tells stocks to update
+	public static boolean forceStocks = false;
+
 	// Data for current stock prices
 	private static double[] currentStockPrices = new double[STOCKS];
+	// Creates variables to store values sent to client by server
+	double[][] stockPrices = new double[STOCKS][GRAPH_LINES];
+
+	// Declare the balances labels
+	static GLabel[] balances = new GLabel[2];
 
 	public void drawGame() {
 
@@ -117,9 +126,6 @@ public class Game extends Lobby {
 
 		// Declare the labels to display the stocks percent change on the left side of the screen
 		GLabel[] percents = new GLabel[STOCKS];
-
-		// Declare the balances labels
-		GLabel[] balances = new GLabel[4];
 
 		// Declare the bounding box for balances
 		GRect balancesBox = new GRect(0,0,0,0);
@@ -167,7 +173,7 @@ public class Game extends Lobby {
 
 		// Declares bottom label
 		GLabel bottomLabel = new GLabel("Shares: 0 ($0) Average: $0.00",0,0);
-		
+
 		// Declares the selecting box for stocks
 		GRect selectionBox = new GRect(0,0,0,0);
 
@@ -176,15 +182,12 @@ public class Game extends Lobby {
 		Color darkBar = new Color(45,45,45);
 		Color dashColor = new Color(217,217,217);
 		Color selectColor = new Color(60,60,60);
-		
-		// Creates variables to store values sent to client by server
-		double[][] stockPrices = new double[STOCKS][GRAPH_LINES];
 
 		// END OF VARIABLE DECLARATION
 
 		// TEMP FILES
 		String[] tickerList = {"PAR","FOT","SFT","IOG","MTA","TLA","NVD","NFX","PYP","ETY"};
-		String[] balanceList = {"Cash: $","Net Worth: $","Daily Profit: $","Profit: $"};
+		String[] balanceList = {"Cash: $","Profit: $"};
 
 		// START OF INITIAL CONFIGURATION
 
@@ -207,10 +210,6 @@ public class Game extends Lobby {
 			}
 		}
 
-		// Setup lines for the graph
-		for (int i = 0; i < lines.length; i++) {
-		}
-
 		// Setup dot lines for the graph
 		for (int i = 0; i < dotLines.length; i++) {
 			GRect dotLine = new GRect(0,0,0,0);
@@ -228,7 +227,7 @@ public class Game extends Lobby {
 		selectionBox.setColor(selectColor);
 		selectionBox.setFilled(true);
 		add(selectionBox);
-		
+
 		// Setup stocks boxes
 		for (int i = 0; i < stocks.length; i++) {
 			GRect stock = new GRect(0,0,0,0);
@@ -277,7 +276,7 @@ public class Game extends Lobby {
 
 		setupBox(bottomBox);
 		setupLabel(bottomLabel);
-		
+
 		setupButton(buyLabel,buyButton);
 		setupButton(sellLabel,sellButton);
 
@@ -292,13 +291,13 @@ public class Game extends Lobby {
 			height = getHeight();
 
 			if (width != oldWidth || height != oldHeight || forceUpdate) { // Only run updates when canvas changes size
-				
+
 				// Disable force update
 				forceUpdate = false;
-				
+
 				// Update the graph
 				forceGraph = true;
-				
+
 				// LEFT SIDE OF SCREEN
 
 				// Sets location and size of stocks
@@ -321,7 +320,7 @@ public class Game extends Lobby {
 
 				for (int i = 0; i < balances.length; i++) {
 					percentLabel(balances[i], MEDIUM_FONT_SIZE);
-					percentObjRel(balances[i], LEFT_PERCENT_X1,LEFT_BALANCE_Y1+(LEFT_BALANCE_HEIGHT*i/balances.length), null, true);
+					percentObjRel(balances[i], LEFT_PERCENT_X1,LEFT_BALANCE_Y1+(LEFT_BALANCE_HEIGHT*i/balances.length)+LEFT_BALANCE_HEIGHT/8, null, true);
 				}
 
 				// RIGHT OF SCREEN
@@ -332,7 +331,6 @@ public class Game extends Lobby {
 
 				percentLabel(clock, LARGE_FONT_SIZE);
 				percentObjRel(clock, 50, 50, clockBox, false);
-				clock.setLabel(time);
 
 				// Sets the location and size of history
 				percentObjSize(historyBox, RIGHT_PERCENT_WIDTH, RIGHT_HISTORY_HEIGHT, null);
@@ -373,23 +371,31 @@ public class Game extends Lobby {
 				percentLabel(bottomLabel, LARGE_FONT_SIZE);
 				percentObjRel(bottomLabel, 125, 0, sellButton, true);
 			}
-			
+
 			// If resolution changes or stock changes redraw the graph
+			if (forceStocks) {
+				updateStocks();
+			}
+
+			forceStocks = false;
+
 			if (forceGraph) {
-				
+
 				// Disable graph update
 				forceGraph = false;
-				
+
+				clock.setLabel(time);
+
 				//TODO: REDRAW THE GRAPH
-				
+
 				// Selector
 				percentObjSize(selectionBox, LEFT_PERCENT_WIDTH, LEFT_STOCKS_HEIGHT/stocks.length, null);
 				percentObjRel(selectionBox, LEFT_PERCENT_X1,LEFT_STOCKS_Y1+(LEFT_STOCKS_HEIGHT*SELECTION_MULTIPLIER/stocks.length), null, true);
-				
-				
+
+
 				// Bottom label
 				bottomLabel.setLabel(""); //TODO: MAKE LABEL ACTUALLY HAVE DATA
-				
+
 				// Graph
 				//TODO: GRAPH DRAWING
 				for (int i = 0; i < lines.length; i++) {
@@ -410,7 +416,7 @@ public class Game extends Lobby {
 					}
 					add(lines[i]);
 				}
-				
+
 			}
 			// START MOUSE EVENTS
 
@@ -433,7 +439,7 @@ public class Game extends Lobby {
 			}
 			if (keyPress) {
 				keyPress = false;
-				
+
 				switch(key) {
 				case "0":
 					setStock(tickers[0],0);
@@ -478,10 +484,10 @@ public class Game extends Lobby {
 					break;
 				}
 			}
-			
+
 			oldWidth = width;
 			oldHeight = height;
-			
+
 			pause(REFRESH);
 		}
 
@@ -507,19 +513,31 @@ public class Game extends Lobby {
 		box.setColor(Color.WHITE);
 		add(box);
 	}
-	
-	
+
+
 	private void setStock(GLabel ticker, int i) {
 		Settings.updateString("ticker", ticker.getLabel());
 		SELECTION_MULTIPLIER = i;
 		forceGraph = true;
 	}
-	
-	
+
+
 	public static void updateCurrentStocks(String priceBlock) {
 		for (int i = 0; i < STOCKS; i++) {
 			String[] prices = priceBlock.split(",");
 			currentStockPrices[i] =  Double.parseDouble(prices[i]);
+			forceGraph = true;
+		}
+	}
+
+
+	public void updateStocks() {
+		for (int i = 0; i < STOCKS; i++) {
+			for (int j = 1; j < GRAPH_LINES; j++) {
+				stockPrices[i][j-1] = stockPrices[i][j];
+			}
+			stockPrices[i][GRAPH_LINES-1] = currentStockPrices[i];
+			println(stockPrices[0][i]);
 		}
 	}
 }

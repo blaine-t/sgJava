@@ -18,15 +18,13 @@ public class Settings {
 		updateString("friendly","DEFAULT");
 		updateInt("code",123456);
 		
-		updateInt("capital",15000);
+		updateInt("capital",1000000);
 		updateInt("length",5);
 		
-		updateString("ticker","PAR");
+		updateString("ticker","0. PAR");
 		updateInt("amount",0);
 		
 		updateString("screen","title");
-		
-		updateBool("ready",false);
 	}
 	
 	// Creates the JSON object to store the values of settings

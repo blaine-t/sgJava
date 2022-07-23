@@ -20,6 +20,9 @@ public class Play extends Options {
 
 		// Initializes event listeners
 
+		// Checks the in game data
+		Sockets.date();
+		
 		// Checks the in game time
 		Sockets.time();
 
@@ -31,6 +34,9 @@ public class Play extends Options {
 
 		// Checks for codes given to host
 		Sockets.code();
+		
+		// Checks for starting
+		Sockets.starting();
 
 		// Checks for player list when user joins or leaves or readys
 		Sockets.players();
@@ -38,8 +44,14 @@ public class Play extends Options {
 		// Checks if the host has left the lobby and the lobby has been disbanded 
 		Sockets.disband();
 
-		// Checks for game events
-		Sockets.game();
+		// Checks for transaction confirmations
+		Sockets.transaction();
+		
+		// Checks for balance info
+		Sockets.balance();
+		
+		// Checks for stocks
+		Sockets.stocks();
 
 		// Initializes the dialog box
 		IODialog dialog = new IODialog();

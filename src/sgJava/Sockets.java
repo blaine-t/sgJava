@@ -174,6 +174,19 @@ public class Sockets {
 		});
 	}
 	
+	/**
+	 * Listens for the start of game from the server
+	 */
+	public static void starting() {
+		socket.on("starting", new Emitter.Listener() {
+
+			@Override
+			public void call(Object... args) {
+				Settings.updateString("screen", "game");
+			}
+		});
+	}
+	
 	
 	/**
 	 * Listens for disband statuses from the server
@@ -190,10 +203,17 @@ public class Sockets {
 	
 	
 	/**
-	 * Listens for game events from the server
+	 * Listens for transaction confirmations from the server
 	 */
-	public static void game() {
-		socket.on("game", new Emitter.Listener() {
+	public static void transaction() {
+		socket.on("buyConfirm", new Emitter.Listener() {
+
+			@Override
+			public void call(Object... args) {
+				System.out.println(args[0]);
+			}
+		});
+		socket.on("sellConfirm", new Emitter.Listener() {
 
 			@Override
 			public void call(Object... args) {
@@ -203,6 +223,19 @@ public class Sockets {
 	}
 
 	/**
+	 * Listens for balance data from the server
+	 */
+	public static void balance() {
+		socket.on("balance", new Emitter.Listener() {
+
+			@Override
+			public void call(Object... args) {
+				Game.balances[0].setLabel((String) args[0]);
+			}
+		});
+	}
+	
+	/**
 	 * Listens for stocks sent from the server
 	 */
 	public static void stocks() {
@@ -211,6 +244,7 @@ public class Sockets {
 			@Override
 			public void call(Object... args) {
 				Game.updateCurrentStocks((String) args[0]);
+				Game.forceStocks = true;
 			}
 		});
 	}
@@ -238,6 +272,7 @@ public class Sockets {
 			@Override
 			public void call(Object... args) {
 				Main.time = (String) args[0];
+				System.out.println(Main.time);
 			}
 		});
 	}

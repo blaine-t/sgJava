@@ -104,6 +104,39 @@ public class Init extends Game {
 		case KeyEvent.VK_S: 
 			key = "S";
 			break;
+		case KeyEvent.VK_P: 
+			key = "P";
+			break;
+		case KeyEvent.VK_O: 
+			key = "O";
+			break;
+		case KeyEvent.VK_A: 
+			key = "A";
+			break;
+		case KeyEvent.VK_N: 
+			key = "N";
+			break;
+		case KeyEvent.VK_H: 
+			key = "H";
+			break;
+		case KeyEvent.VK_J: 
+			key = "J";
+			break;
+		case KeyEvent.VK_C: 
+			key = "C";
+			break;
+		case KeyEvent.VK_R: 
+			key = "R";
+			break;
+		case KeyEvent.VK_L: 
+			key = "L";
+			break;
+		case KeyEvent.VK_D: 
+			key = "D";
+			break;
+		default:
+			key= "NULL" ;
+			break;
 		}
 	}
 }
