@@ -68,7 +68,7 @@ public class Game extends Lobby {
 	private static final int STOCKS = 10;
 
 	// Amount of graph boxes and lines to draw
-	private static final int GRAPH_LINES = 10;
+	private static final int GRAPH_LINES = 11;
 
 	// Amount of history to log to GUI
 	private static final int HISTORY_LENGTH = 20;
@@ -96,7 +96,7 @@ public class Game extends Lobby {
 	private static int SELECTION_MULTIPLIER = 0;
 
 	// Boolean that forces the graph to redraw even without resolution change
-	private static boolean forceGraph = false;
+	public static boolean forceGraph = false;
 
 	// Boolean that tells stocks to update
 	public static boolean forceStocks = false;
@@ -375,10 +375,11 @@ public class Game extends Lobby {
 			// If resolution changes or stock changes redraw the graph
 			if (forceStocks) {
 				updateStocks();
+				forceGraph = true;
 			}
 
 			forceStocks = false;
-
+			
 			if (forceGraph) {
 
 				// Disable graph update
@@ -397,18 +398,59 @@ public class Game extends Lobby {
 				bottomLabel.setLabel(""); //TODO: MAKE LABEL ACTUALLY HAVE DATA
 
 				// Graph
-				//TODO: GRAPH DRAWING
-				for (int i = 0; i < lines.length; i++) {
+				double dynamicFloor = 1000;
+				double dynamicCeiling = 10;
+				double dynamicCurrent = 0;
+
+				for (int i = 0; i < STOCKS; i++) {
+
+					if (stockPrices[SELECTION_MULTIPLIER][i] < dynamicFloor && stockPrices[SELECTION_MULTIPLIER][i] != 0) {
+						dynamicFloor = stockPrices[SELECTION_MULTIPLIER][i];
+					}
+
+					if (stockPrices[SELECTION_MULTIPLIER][i] > dynamicCeiling) {
+						dynamicCeiling = stockPrices[SELECTION_MULTIPLIER][i];
+					}
+
+				}
+				println(dynamicFloor);
+				println(dynamicCeiling);
+				println("--------");
+
+				for (int i = 0; i < GRAPH_LINES-1; i++) {
+
 					if (lines[i] != null) {
 						remove(lines[i]);
 					}
-					GPolygon line = thickLine(0, 50, 100, 75, 50, bars[i]);
+
+					dynamicCurrent = stockPrices[SELECTION_MULTIPLIER][i];
+					
+					double dynamicY1 = (dynamicCurrent-dynamicCeiling)/(dynamicFloor/dynamicCeiling)+50;
+					
+					dynamicCurrent = stockPrices[SELECTION_MULTIPLIER][i+1];
+
+					double dynamicY2 = (dynamicCurrent-dynamicCeiling)/(dynamicFloor/dynamicCeiling)+50;
+					
+					if (dynamicY1 > 100) {
+						dynamicY1 = 100;
+					}
+					if (dynamicY2 > 100) {
+						dynamicY2 = 100;
+					}
+					if (dynamicY1 < 0) {
+						dynamicY1 = 0;
+					}
+					if (dynamicY2 < 0) {
+						dynamicY2 = 0;
+					}
+
+					GPolygon line = thickLine(0, 100-dynamicY1, 100, 100-dynamicY2, 50, bars[i]);
 					lines[i] = line;
 					line.setFilled(true);
-					if (75 - 50 == 0) {
+					if (dynamicY1 == dynamicY2) {
 						line.setColor(Color.YELLOW);
 					}
-					else if (75 - 50 < 0) {
+					else if (dynamicY1 < dynamicY2) {
 						line.setColor(Color.GREEN);
 					}
 					else {
@@ -548,7 +590,7 @@ public class Game extends Lobby {
 		history[HISTORY_LENGTH-1].setLabel(log);
 		history[HISTORY_LENGTH-1].setColor(Color.GREEN);
 	}
-	
+
 	public static void sellHandler(String log) {
 		System.out.println(log);
 		for (int i = 1; i < HISTORY_LENGTH; i++) {

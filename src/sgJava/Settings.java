@@ -10,7 +10,7 @@ public class Settings {
 	 */
 	public static void defaults() {
 		
-		updateString("URL","wss://sg.bathost.net");
+		updateString("URL","ws://localhost:25056");
 		updateBool("host",false);
 		updateBool("ready",false);
 		

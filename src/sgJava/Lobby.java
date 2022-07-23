@@ -111,6 +111,8 @@ public class Lobby extends Play {
 			width = getWidth();
 			height = getHeight();
 
+			codeLabel.setLabel("CODE: " + Integer.toString(Settings.setting.getInt("code")));
+			
 			// A stupidly inefficient way of handling player list but it works
 
 			if (players != null && asyncRefresh >= 0) {	
@@ -327,7 +329,9 @@ public class Lobby extends Play {
 			// Update width and height of the canvas
 			width = getWidth();
 			height = getHeight();
-
+			
+			codeLabel.setLabel("CODE: " + Integer.toString(Settings.setting.getInt("code")));
+			
 			// A stupidly inefficient way of handling player list but it works
 
 			if (players != null && asyncRefresh >= 0) {	

@@ -258,6 +258,7 @@ public class Sockets {
 			public void call(Object... args) {
 				Game.updateCurrentStocks((String) args[0]);
 				Game.forceStocks = true;
+				Game.forceGraph = true;
 			}
 		});
 	}
