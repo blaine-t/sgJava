@@ -210,14 +210,14 @@ public class Sockets {
 
 			@Override
 			public void call(Object... args) {
-				System.out.println(args[0]);
+				Game.buyHandler((String) args[0]);
 			}
 		});
 		socket.on("sellConfirm", new Emitter.Listener() {
 
 			@Override
 			public void call(Object... args) {
-				System.out.println(args[0]);
+				Game.sellHandler((String) args[0]);
 			}
 		});
 	}
@@ -227,6 +227,19 @@ public class Sockets {
 	 */
 	public static void balance() {
 		socket.on("balance", new Emitter.Listener() {
+
+			@Override
+			public void call(Object... args) {
+				Game.balances[0].setLabel((String) args[0]);
+			}
+		});
+	}
+	
+	/**
+	 * Listens for profit data from the server
+	 */
+	public static void profit() {
+		socket.on("profit", new Emitter.Listener() {
 
 			@Override
 			public void call(Object... args) {

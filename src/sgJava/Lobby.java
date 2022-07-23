@@ -216,8 +216,6 @@ public class Lobby extends Play {
 					}
 					else if (object == startButton) {
 						Sockets.start();
-						Settings.updateString("screen", "game");
-
 					}
 					else if (object == readyButton) {
 

@@ -10,12 +10,12 @@ public class Settings {
 	 */
 	public static void defaults() {
 		
-		updateString("URL","ws://localhost:25056");
+		updateString("URL","wss://sg.bathost.net");
 		updateBool("host",false);
 		updateBool("ready",false);
 		
-		updateString("token","12345-ABCDE-00001");
-		updateString("friendly","DEFAULT");
+		updateString("token","RAIKES-PROD-KEY");
+		updateString("friendly","0RAIKES-PRES");
 		updateInt("code",123456);
 		
 		updateInt("capital",1000000);

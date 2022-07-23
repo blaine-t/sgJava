@@ -109,6 +109,9 @@ public class Game extends Lobby {
 	// Declare the balances labels
 	static GLabel[] balances = new GLabel[2];
 
+	// Declares the purchase history labels
+	static GLabel[] history = new GLabel[HISTORY_LENGTH];
+
 	public void drawGame() {
 
 		// START OF VARIABLE DECLARATION
@@ -151,9 +154,6 @@ public class Game extends Lobby {
 
 		// Declares the clock bounding box
 		GRect clockBox = new GRect(0,0,0,0);
-
-		// Declares the purchase history labels
-		GLabel[] history = new GLabel[HISTORY_LENGTH];
 
 		// Declares the history bounding box
 		GRect historyBox = new GRect(0,0,0,0);
@@ -265,7 +265,7 @@ public class Game extends Lobby {
 
 		// Setup history lines
 		for (int i = 0; i < history.length; i++) {
-			GLabel entry = new GLabel(Integer.toString(i),0,0);
+			GLabel entry = new GLabel("",0,0);
 			history[i] = entry;
 			setupLabel(entry);
 		}
@@ -473,7 +473,6 @@ public class Game extends Lobby {
 					break;
 				case "B":
 					mousePress = true;
-					println(buyButton.getX());
 					mouseX = (int) buyButton.getX()+1;
 					mouseY = (int) buyButton.getY()+1;
 					break;
@@ -537,7 +536,26 @@ public class Game extends Lobby {
 				stockPrices[i][j-1] = stockPrices[i][j];
 			}
 			stockPrices[i][GRAPH_LINES-1] = currentStockPrices[i];
-			println(stockPrices[0][i]);
 		}
+	}
+
+	public static void buyHandler(String log) {
+		System.out.println(log);
+		for (int i = 1; i < HISTORY_LENGTH; i++) {
+			history[i-1].setLabel(history[i].getLabel());
+			history[i-1].setColor(history[i].getColor());
+		}
+		history[HISTORY_LENGTH-1].setLabel(log);
+		history[HISTORY_LENGTH-1].setColor(Color.GREEN);
+	}
+	
+	public static void sellHandler(String log) {
+		System.out.println(log);
+		for (int i = 1; i < HISTORY_LENGTH; i++) {
+			history[i-1].setLabel(history[i].getLabel());
+			history[i-1].setColor(history[i].getColor());
+		}
+		history[HISTORY_LENGTH-1].setLabel(log);
+		history[HISTORY_LENGTH-1].setColor(Color.RED);
 	}
 }
