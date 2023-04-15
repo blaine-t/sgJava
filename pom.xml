@@ -18,7 +18,7 @@ http://maven.apache.org/xsd/maven-4.0.0.xsd">
 		<dependency>
 			<groupId>org.json</groupId>
 			<artifactId>json</artifactId>
-			<version>20220320</version>
+			<version>20230227</version>
 		</dependency>
 	</dependencies>
 </project>
